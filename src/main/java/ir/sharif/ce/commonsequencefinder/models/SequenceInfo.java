@@ -1,5 +1,7 @@
 package ir.sharif.ce.commonsequencefinder.models;
 
+import java.util.Scanner;
+
 /**
  * Created by khesoem on 9/9/2018.
  */
@@ -16,10 +18,6 @@ public class SequenceInfo {
         this.hashedFilePath = hashedFilePath;
         this.count = count;
         this.score = (Math.log(length) / Math.log(2)) * (Math.log(count) / Math.log(2));
-    }
-
-    public String getSourceCode(){
-        return null;
     }
 
     public int getStartInd() {

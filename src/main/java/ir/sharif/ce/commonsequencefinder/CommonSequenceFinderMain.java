@@ -25,7 +25,8 @@ public class CommonSequenceFinderMain {
         for(int i = 0; i < sortedDistinctLongestCommonSequences.size(); i++){
             SequenceInfo sequenceInfo = sortedDistinctLongestCommonSequences.get(i);
             outputPw.println(sequenceInfo.getScore() + ", " + sequenceInfo.getLength() + ", "
-                    + sequenceInfo.getCount() + ", " + sequenceInfo.getSourceCode());
+                    + sequenceInfo.getCount() + ", " +
+                    AllSourcesInfo.getInstance(inputPath).getSourceCode(sequenceInfo));
         }
         outputPw.close();
     }

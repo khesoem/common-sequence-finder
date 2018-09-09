@@ -72,6 +72,26 @@ public class AllSourcesInfo {
         hashedPw.close();
     }
 
+    public String getSourceCode(SequenceInfo sequenceInfo){
+        String sourceCode = "";
+
+        int ind = 0;
+        Scanner sc = new Scanner(sequenceInfo.getHashedFilePath());
+        while(sc.hasNextLine()){
+            String hashedToken = sc.nextLine();
+
+            if(ind < sequenceInfo.getStartInd())
+                continue;
+            if(ind >= sequenceInfo.getStartInd() + sequenceInfo.getLength())
+                break;
+
+            sourceCode += (sourceCode.length() == 0 ? "" : " ") + hashedToken;
+
+            ind++;
+        }
+        return sourceCode;
+    }
+
     public List<SequenceInfo> getSortedDistinctLongestCommonSequences() {
         List<SequenceInfo> allLongestCommonSequences =
                 new ArrayList<>();
