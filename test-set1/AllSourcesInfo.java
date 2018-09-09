@@ -25,7 +25,6 @@ public class AllSourcesInfo {
     }
 
     private List<String> hashedSourcePaths;
-    private List<HashedSourceInfo> hashedSourceInfoList;
     private Map<String, Integer> tokenToInt;
     private ArrayList<String> allTokens;
 
@@ -35,7 +34,6 @@ public class AllSourcesInfo {
 
     private void init(String sourceListPath) throws IOException {
         hashedSourcePaths = new ArrayList<>();
-        hashedSourceInfoList = new ArrayList<>();
         tokenToInt = new HashMap<>();
         allTokens = new ArrayList<>();
 
@@ -49,11 +47,10 @@ public class AllSourcesInfo {
 
     private void addFile(String path) throws IOException {
         File file = new File(path);
-        String hashedSourcePath = path + HASHED_KEYWORD;
 
-        File hashedFile = new File(hashedSourcePath);
+        File hashedFile = new File(path + HASHED_KEYWORD);
         hashedFile.createNewFile();
-        hashedSourcePaths.add(hashedSourcePath);
+        hashedSourcePaths.add(path + HASHED_KEYWORD);
         PrintWriter hashedPw = new PrintWriter(hashedFile);
 
         List<String> tokens = new ArrayList<>();
@@ -76,8 +73,6 @@ public class AllSourcesInfo {
         }
 
         hashedPw.close();
-
-        hashedSourceInfoList.add(new HashedSourceInfo(hashedSourcePath));
     }
 
     public static boolean isStringWhiteSpace(String value) {
@@ -107,9 +102,9 @@ public class AllSourcesInfo {
         /*  finding longest common sequences among all files
             by checking longest common sequences between each pair of files */
         for (int i = 0; i < hashedSourcePaths.size(); i++) {
-            HashedSourceInfo hashedSourceInfo1 = hashedSourceInfoList.get(i);
+            HashedSourceInfo hashedSourceInfo1 = new HashedSourceInfo(hashedSourcePaths.get(i));
             for (int j = i + 1; j < hashedSourcePaths.size(); j++) {
-                HashedSourceInfo hashedSourceInfo2 = hashedSourceInfoList.get(j);
+                HashedSourceInfo hashedSourceInfo2 = new HashedSourceInfo(hashedSourcePaths.get(j));
                 List<SequenceInfo> longestCommonSequences =
                         SourceComparatorHelper.getInstance()
                                 .getLongestCommonSequences
@@ -139,7 +134,7 @@ public class AllSourcesInfo {
                 continue;
             int count = 0;
             for (int i = 0; i < hashedSourcePaths.size(); i++) {
-                if(hashedSourceInfoList.get(i).contains(hashedSequenceLst)){
+                if(new HashedSourceInfo(hashedSourcePaths.get(i)).contains(hashedSequenceLst)){
                     count++;
                 }
             }

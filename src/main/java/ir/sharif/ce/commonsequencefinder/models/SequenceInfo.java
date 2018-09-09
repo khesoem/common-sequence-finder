@@ -1,5 +1,7 @@
 package ir.sharif.ce.commonsequencefinder.models;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,16 +20,18 @@ public class SequenceInfo {
         this.hashedFilePath = hashedFilePath;
     }
 
-    public List<Integer> getHashedSequence(){
+    public List<Integer> getHashedSequence() throws FileNotFoundException {
         List<Integer> hashedSequence = new ArrayList<>();
 
         int ind = 0;
-        Scanner sc = new Scanner(getHashedFilePath());
+        Scanner sc = new Scanner(new File(getHashedFilePath()));
         while(sc.hasNextLine()){
             String hashedToken = sc.nextLine();
 
-            if(ind < getStartInd())
+            if(ind < getStartInd()) {
+                ind++;
                 continue;
+            }
             if(ind >= getStartInd() + getLength())
                 break;
 

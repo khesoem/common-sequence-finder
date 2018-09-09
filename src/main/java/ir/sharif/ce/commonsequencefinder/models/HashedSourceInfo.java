@@ -1,5 +1,7 @@
 package ir.sharif.ce.commonsequencefinder.models;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,12 +15,15 @@ public class HashedSourceInfo {
 
     /*  every time information is read from the file
         since keeping it in memory may cause the program to exceed the heap size */
-    public HashedSourceInfo(String hashedFilePath) {
+    public HashedSourceInfo(String hashedFilePath) throws FileNotFoundException {
         this.hashedFilePath = hashedFilePath;
 
-        Scanner sc = new Scanner(hashedFilePath);
+        tokenIds = new ArrayList<>();
+
+        Scanner sc = new Scanner(new File(hashedFilePath));
         while (sc.hasNextLine()) {
-            tokenIds.add(Integer.parseInt(sc.next()));
+            String line = sc.nextLine();
+            tokenIds.add(Integer.parseInt(line));
         }
         sc.close();
     }
