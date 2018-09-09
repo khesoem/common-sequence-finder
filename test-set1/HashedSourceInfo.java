@@ -1,0 +1,53 @@
+
+public class HashedSourceInfo {
+    private ArrayList<Integer> tokenIds;
+    private String hashedFilePath;
+
+    /*  every time information is read from the file
+        since keeping it in memory may cause the program to exceed the heap size */
+    public HashedSourceInfo(String hashedFilePath) throws FileNotFoundException {
+        this.hashedFilePath = hashedFilePath;
+
+        tokenIds = new ArrayList<>();
+
+        Scanner sc = new Scanner(new File(hashedFilePath));
+        while (sc.hasNextLine()) {
+            String line = sc.nextLine();
+            tokenIds.add(Integer.parseInt(line));
+        }
+        sc.close();
+    }
+
+    public ArrayList<Integer> getTokenIds() {
+        return tokenIds;
+    }
+
+    public void setTokenIds(ArrayList<Integer> tokenIds) {
+        this.tokenIds = tokenIds;
+    }
+
+    public String getHashedFilePath() {
+        return hashedFilePath;
+    }
+
+    public void setHashedFilePath(String hashedFilePath) {
+        this.hashedFilePath = hashedFilePath;
+    }
+
+    public boolean contains(List<Integer> hashedSequenceLst) {
+        if (hashedSequenceLst.size() > tokenIds.size())
+            return false;
+        int seqInd = 0;
+        for (int i = 0; i < tokenIds.size(); i++) {
+            if (hashedSequenceLst.get(seqInd).equals(tokenIds.get(i))) {
+                seqInd++;
+            } else if (hashedSequenceLst.get(0).equals(tokenIds.get(i))) {
+                seqInd = 1;
+            } else
+                seqInd = 0;
+            if(seqInd == hashedSequenceLst.size())
+                return true;
+        }
+        return false;
+    }
+}

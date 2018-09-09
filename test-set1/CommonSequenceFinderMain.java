@@ -1,22 +1,11 @@
-package ir.sharif.ce.commonsequencefinder;
 
-import ir.sharif.ce.commonsequencefinder.models.AllSourcesInfo;
-import ir.sharif.ce.commonsequencefinder.models.CommonSequenceInfo;
-
-import java.io.*;
-import java.util.List;
-import java.util.UUID;
-
-/**
- * Created by khesoem on 9/9/2018.
- */
 public class CommonSequenceFinderMain {
     private static final String GENERATED_SET_PATH = "generated-set";
 
     /*  args[0] = inputPath, args[1] = outputPath,
         args[2] = to use input generation (0 or 1), args[3] = inputFolder (if args[2]=1) */
     public static void main(String[] args) throws IOException {
-//        args = new String[]{"input.txt", "output.txt", "0", "D:\\Daneshgah\\apply\\prof-nadi\\task2\\common-sequence-finder\\test-set3"};
+        args = new String[]{"input.txt", "output.txt", "1", "D:\\Daneshgah\\apply\\prof-nadi\\task2\\common-sequence-finder\\src\\main\\java\\ir\\sharif\\ce"};
         if (args[2].equals("1")) {
             File generatedFilesDir = new File(GENERATED_SET_PATH);
             if(generatedFilesDir.exists())

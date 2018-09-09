@@ -1,0 +1,1 @@
+4.584962500721157, 24, 2, ;:::Scanner:::sc:::=:::new:::Scanner:::(:::new:::File:::(:::hashedFilePath:::):::):::;:::while:::(:::sc:::.:::hasNextLine:::(:::):::):::{:::String

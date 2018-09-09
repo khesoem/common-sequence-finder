@@ -1,14 +1,4 @@
-package ir.sharif.ce.commonsequencefinder.models;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-/**
- * Created by khesoem on 9/9/2018.
- */
 public class SequenceInfo {
     private int startInd;
     private int length;

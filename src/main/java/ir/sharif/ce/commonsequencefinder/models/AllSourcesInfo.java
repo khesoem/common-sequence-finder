@@ -15,12 +15,11 @@ import java.util.*;
  */
 public class AllSourcesInfo {
     public static final String HASHED_KEYWORD = "HASHED";
-    public static final int MAX_NUMBER_OF_FILES = 200;
     private static AllSourcesInfo _instance;
 
     public static AllSourcesInfo getInstance(String sourcesListPath) throws IOException {
         if (_instance == null)
-            return new AllSourcesInfo(sourcesListPath);
+            _instance = new AllSourcesInfo(sourcesListPath);
         return _instance;
     }
 
@@ -62,6 +61,8 @@ public class AllSourcesInfo {
                 .forEach(t -> tokens.add(t.getText()));
         for (int i = 0; i < tokens.size(); i++) {
             String token = tokens.get(i);
+            token = token.replace("\n", "");
+            token = token.replace("\r", "");
             if(isStringWhiteSpace(token))
                 continue;
             int tokenId;
@@ -95,7 +96,7 @@ public class AllSourcesInfo {
         for (int i = 0; i < sequenceInfo.getHashedSequence().size(); i++) {
             Integer hashedToken = sequenceInfo.getHashedSequence().get(i);
             String token = allTokens.get(hashedToken);
-            sourceCode += (sourceCode.length() == 0 ? "" : " ") + token;
+            sourceCode += (sourceCode.length() == 0 ? "" : ":::") + token;
         }
         return sourceCode;
     }
