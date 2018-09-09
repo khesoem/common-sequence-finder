@@ -2,6 +2,7 @@ package ir.sharif.ce.commonsequencefinder.models;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
+import ir.sharif.ce.commonsequencefinder.utils.SourceComparatorHelper;
 
 import java.io.File;
 import java.io.IOException;
@@ -58,9 +59,9 @@ public class AllSourcesInfo {
         for (int i = 0; i < tokens.size(); i++) {
             String token = tokens.get(i);
             int tokenId;
-            if(tokenToInt.containsKey(token)){
+            if (tokenToInt.containsKey(token)) {
                 tokenId = tokenToInt.get(token);
-            }else{
+            } else {
                 tokenId = allTokens.size();
                 allTokens.add(token);
                 tokenToInt.put(token, tokenId);
@@ -71,7 +72,31 @@ public class AllSourcesInfo {
         hashedPw.close();
     }
 
-    public ArrayList<SequenceInfo> getLongestCommonSequences(){
+    public List<SequenceInfo> getSortedDistinctLongestCommonSequences() {
+        List<SequenceInfo> allLongestCommonSequences =
+                new ArrayList<>();
 
+        for (int i = 0; i < hashedSourcePaths.size(); i++) {
+            for (int j = i + 1; j < hashedSourcePaths.size(); j++) {
+                List<SequenceInfo> longestCommonSequences =
+                        SourceComparatorHelper.getInstance()
+                                .getLongestCommonSequences
+                                        (
+                                                new HashedSourceInfo(hashedSourcePaths.get(i)),
+                                                new HashedSourceInfo(hashedSourcePaths.get(j))
+                                        );
+                if (longestCommonSequences != null && longestCommonSequences.size() != 0) {
+                    if (allLongestCommonSequences == null
+                            || allLongestCommonSequences.size() == 0
+                            || allLongestCommonSequences.get(0).getLength() < longestCommonSequences.get(0).getLength()) {
+                        allLongestCommonSequences = longestCommonSequences;
+                    } else if (allLongestCommonSequences.get(0).getLength() == longestCommonSequences.get(0).getLength()){
+                        allLongestCommonSequences.addAll(longestCommonSequences);
+                    }
+                }
+            }
+        }
+
+        return allLongestCommonSequences;
     }
 }

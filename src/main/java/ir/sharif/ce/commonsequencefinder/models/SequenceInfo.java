@@ -8,12 +8,18 @@ public class SequenceInfo {
     private int length;
     private String hashedFilePath;
     private int count;
+    private double score;
 
     public SequenceInfo(int startInd, int length, String hashedFilePath, int count){
         this.startInd = startInd;
         this.length = length;
         this.hashedFilePath = hashedFilePath;
         this.count = count;
+        this.score = (Math.log(length) / Math.log(2)) * (Math.log(count) / Math.log(2));
+    }
+
+    public String getSourceCode(){
+        return null;
     }
 
     public int getStartInd() {
@@ -46,5 +52,13 @@ public class SequenceInfo {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
     }
 }
