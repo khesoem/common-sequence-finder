@@ -1,6 +1,7 @@
 package ir.sharif.ce.commonsequencefinder.models;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -10,11 +11,13 @@ public class HashedSourceInfo {
     private ArrayList<Integer> tokenIds;
     private String hashedFilePath;
 
-    public HashedSourceInfo(String hashedFilePath){
+    /*  every time information is read from the file
+        since keeping it in memory may cause the program to exceed the heap size */
+    public HashedSourceInfo(String hashedFilePath) {
         this.hashedFilePath = hashedFilePath;
 
         Scanner sc = new Scanner(hashedFilePath);
-        while(sc.hasNextLine()){
+        while (sc.hasNextLine()) {
             tokenIds.add(Integer.parseInt(sc.next()));
         }
         sc.close();
@@ -34,5 +37,22 @@ public class HashedSourceInfo {
 
     public void setHashedFilePath(String hashedFilePath) {
         this.hashedFilePath = hashedFilePath;
+    }
+
+    public boolean contains(List<Integer> hashedSequenceLst) {
+        if (hashedSequenceLst.size() > tokenIds.size())
+            return false;
+        int seqInd = 0;
+        for (int i = 0; i < tokenIds.size(); i++) {
+            if (hashedSequenceLst.get(seqInd).equals(tokenIds.get(i))) {
+                seqInd++;
+            } else if (hashedSequenceLst.get(0).equals(tokenIds.get(i))) {
+                seqInd = 1;
+            } else
+                seqInd = 0;
+            if(seqInd == hashedSequenceLst.size())
+                return true;
+        }
+        return false;
     }
 }

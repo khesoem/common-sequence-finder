@@ -1,5 +1,7 @@
 package ir.sharif.ce.commonsequencefinder.models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -9,15 +11,31 @@ public class SequenceInfo {
     private int startInd;
     private int length;
     private String hashedFilePath;
-    private int count;
-    private double score;
 
-    public SequenceInfo(int startInd, int length, String hashedFilePath, int count){
+    public SequenceInfo(int startInd, int length, String hashedFilePath){
         this.startInd = startInd;
         this.length = length;
         this.hashedFilePath = hashedFilePath;
-        this.count = count;
-        this.score = (Math.log(length) / Math.log(2)) * (Math.log(count) / Math.log(2));
+    }
+
+    public List<Integer> getHashedSequence(){
+        List<Integer> hashedSequence = new ArrayList<>();
+
+        int ind = 0;
+        Scanner sc = new Scanner(getHashedFilePath());
+        while(sc.hasNextLine()){
+            String hashedToken = sc.nextLine();
+
+            if(ind < getStartInd())
+                continue;
+            if(ind >= getStartInd() + getLength())
+                break;
+
+            hashedSequence.add(Integer.parseInt(hashedToken));
+
+            ind++;
+        }
+        return hashedSequence;
     }
 
     public int getStartInd() {
@@ -44,19 +62,4 @@ public class SequenceInfo {
         this.hashedFilePath = hashedFilePath;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public double getScore() {
-        return score;
-    }
-
-    public void setScore(double score) {
-        this.score = score;
-    }
 }
