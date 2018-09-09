@@ -1,0 +1,8 @@
+out/
+target/
+.gitignore~
+.idea/
+*.iml
+ffmpeg2*
+temp/
+.idea*
