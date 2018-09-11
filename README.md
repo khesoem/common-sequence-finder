@@ -20,7 +20,7 @@ If the third arguemnt is 0, the fourth arguemnt can be any string (you can simpl
 the program will find all the java files in the directory whose path is equal to fourth argument, copy all of them to a new directory 
 (generated-set), generate input file, and print the result in the output file.
 ## How to change and compile it?
-To compile this project, you need maven on your computer. You can change source files in the "src" folder and once your new versoin is ready
+To compile this project, you need maven on your computer. You can change source files in the "src" folder and once your new versoin is ready,
 you should run "mvn package" in the root folder of the project (where the pom.xml is placed).
 
 A new "Common.Sequence.Finder-1.0-SNAPSHOT-jar-with-dependencies.jar" will be generated and can be accessed in the target folder.
@@ -28,7 +28,7 @@ A new "Common.Sequence.Finder-1.0-SNAPSHOT-jar-with-dependencies.jar" will be ge
 This project has been tested on three test sets that are available in "test-set1", "test-set2", and "test-set3" folders. In each folder,
 java files are the source files and the output-set(i).txt file is the result file.
 
-You can run jar file on any of these test-sets. For example, if you are on the root folder of the project, you can use the following commands
+You can run the jar file on any of these test-sets. For example, if you are on the root folder of the project, you can use the following commands
 to run the jar file on "test-set1" and see the results:
 ```
 mkdir test
@@ -39,7 +39,7 @@ vim output.txt
 ```
 ## Clarifications
 1- This project uses https://github.com/javaparser/javaparser to parse source files and find tokens.
- Therefore, your source-files must be parseable 
+ Therefore, your source-files must be parseable java sources
 (should not have compile errors).
 
 2- Comments, imports, and package names are considered as tokens. Whitespaces and endline characters are ignored.
